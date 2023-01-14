@@ -5,7 +5,7 @@ on:
 
 jobs:
   run-release:
-    runs-on: [self-hosted, Linux]
+    runs-on: [linux]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
