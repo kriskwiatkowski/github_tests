@@ -1,7 +1,9 @@
 name: Release
 
 on:
-  - push
+  - push:
+    tag:
+      - '*'
 
 jobs:
   run-release:
