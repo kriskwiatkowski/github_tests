@@ -1,0 +1,29 @@
+name: Release
+
+on:
+  - push
+
+jobs:
+  run-release:
+    runs-on: [self-hosted, Linux]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Create release
+        run: mv text text_${GITHUB_REF_NAME}
+      - uses: actions/upload-artifact@master
+        with:
+          name: deb package
+          path: text_${{ github.ref_name }}
+          if-no-files-found: error
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+
